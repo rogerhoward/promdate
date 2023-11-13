@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: promdate
+  labels:
+    app: promdate
+  annotations:
+    kubernetes.io/description: "deployment of promdate, the Prometheus proxy."
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: promdate
+  template:
+    metadata:
+      labels:
+        app: promdate
+      annotations:
+        kubernetes.io/description: "promdate, the Prometheus proxy."
+    spec:
+      containers:
+        - name: promdate
+          image: rogerhoward/promdate:latest
+          ports:
+            - containerPort: 5000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: promdate
+  annotations:
+    kubernetes.io/description: "exposes promdate as a service"
+spec:
+  ports:
+    - name: web
+      port: 5000
+      protocol: TCP
+      targetPort: 5000
+  selector:
+    app: promdate
