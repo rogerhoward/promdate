@@ -1,0 +1,21 @@
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: acme-metrics
+  annotations:
+    kubernetes.io/description: "Metrics scraper for www.acme.com/metrics using a ServiceMonitor via promdate."
+spec:
+  jobLabel: acme-metrics
+  namespaceSelector:
+    matchNames:
+    # set to the namespace where promdate is deployed
+      - promdate
+  selector:
+    matchLabels:
+      app: promdate
+  endpoints:
+  - port: web
+    path: www.acme.com/metrics
+    scheme: https
