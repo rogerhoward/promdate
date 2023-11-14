@@ -16,7 +16,7 @@ For instance, if Promdate is hosted at `http://promdate.local`, then this URL:
 
 ### deploy Promdate
 
-You may only need one instance of Promdate per cluster, but I'll leave that to you. 
+You may only need one instance of Promdate per cluster.
 
 The important bits involved are:
 
